@@ -11,15 +11,15 @@ margin: 1rem;
 const MainPage = () => {
     const ref = React.createRef();
 
-    const { register, handleSubmit } = useForm();
+    const { register, formState: { errors }, handleSubmit } = useForm();
     const onSubmit = data => console.log(data);
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <OuterContainer>
-                <CustomInput type="text" placeholder="introduce tu nombre" name='name' {...register("firstName", { required: true, maxLength: 20 })} ref={ref} />
+                <CustomInput type="text" placeholder="introduce tu nombre" title='Nombre' name='name' {...register("firstName", { required: true, maxLength: 20 })} error={errors.firstName && 'Error en tu nombre'} ref={ref} />
 
-                <CustomInput type="text" placeholder="introduce tu apellido" name='lastname' {...register("lastName", { pattern: /^[A-Za-z]+$/i })} ref={ref} />
+                <CustomInput type="text" placeholder="introduce tu apellido" title='Apellido' name='lastname' {...register("lastName", { pattern: /^[A-Za-z]+$/i })} error={errors.lastName && 'Error en tu apellido'} ref={ref} />
 
                 <input type="submit" />
             </OuterContainer>
