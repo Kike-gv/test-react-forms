@@ -11,17 +11,17 @@ font-size: 16px;
 }
 `;
 
-const StyledTitle = styled.p`
-`;
+// const StyledTitle = styled.p`
+// `;
 
-const CustomInput = ({ type, placeholder, name, register }) => {
+const CustomInput = React.forwardRef(({type, placeholder, name, ...register}, ref ) => {
 
 
     return (
         <div>
-            <StyledInput type={type} placeholder={placeholder} name={name} id={name} form={form} />
+            <StyledInput type={type} placeholder={placeholder} name={name} id={name} {...register} forwardedRef={ref} />
         </div>
     )
-}
+});
 
 export default CustomInput;
