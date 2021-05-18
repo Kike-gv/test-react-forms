@@ -16,6 +16,7 @@ const schema = yup.object().shape({
   firstName: yup.string().required(),
   lastName: yup.string().required(),
   age: yup.number().positive().integer().required(),
+  workOutside: yup.boolean(),
 });
 
 const MainPage = () => {
@@ -60,7 +61,17 @@ const MainPage = () => {
           title="Edad"
           name="age"
           {...register("age")}
-          error={errors.lastName && "Error en tu edad"}
+          error={errors.age && "Error en tu edad"}
+          ref={ref}
+        />
+
+        <CustomInput
+          type="checkbox"
+          placeholder=""
+          title="¿Has trabajado en el extranjero?"
+          name="workOutside"
+          {...register("workOutside")}
+          error={errors.workOutside && ""}
           ref={ref}
         />
 

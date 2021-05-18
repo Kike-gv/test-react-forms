@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
 const StyledContainer = styled.div`
@@ -26,18 +26,45 @@ const StyledError = styled.p`
 `;
 
 const CustomInput = React.forwardRef(
-  ({ type, placeholder, title, error, name, ...register }, ref) => {
+  (
+    { type, placeholder, title, error, name, value = false, ...register },
+    ref
+  ) => {
+    const [isCheckValue, setIsCheckValue] = useState(false);
+    const [isCheckChanged, setIsCheckChanged] = useState(value);
+
+    useEffect(() => {
+      if (type === "checkbox") {
+        setIsCheckValue(true);
+      }
+    }, [type]);
+
     return (
       <StyledContainer>
         <StyledTitle>{title}</StyledTitle>
-        <StyledInput
-          type={type}
-          placeholder={placeholder}
-          name={name}
-          id={name}
-          {...register}
-          forwardedRef={ref}
-        />
+        {!isCheckValue && (
+          <StyledInput
+            type={type}
+            placeholder={placeholder}
+            name={name}
+            id={name}
+            {...register}
+            forwardedRef={ref}
+          />
+        )}
+
+        {isCheckValue && (
+          <StyledInput
+            type={type}
+            placeholder={placeholder}
+            name={name}
+            id={name}
+            value={isCheckChanged}
+            {...register}
+            onChange={() => setIsCheckChanged(!isCheckChanged)}
+            forwardedRef={ref}
+          />
+        )}
         {error && <StyledError>{error}</StyledError>}
       </StyledContainer>
     );
