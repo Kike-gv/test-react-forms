@@ -1,30 +1,73 @@
 import React from "react";
-import { useForm } from "react-hook-form";
-import styled from 'styled-components';
 
-import CustomInput from '../components/CustomInput';
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+
+import styled from "styled-components";
+
+import CustomInput from "../components/CustomInput";
 
 const OuterContainer = styled.div`
-margin: 1rem;
+  margin: 1rem;
 `;
 
+const schema = yup.object().shape({
+  firstName: yup.string().required(),
+  lastName: yup.string().required(),
+  age: yup.number().positive().integer().required(),
+});
+
 const MainPage = () => {
-    const ref = React.createRef();
+  const ref = React.createRef();
 
-    const { register, formState: { errors }, handleSubmit } = useForm();
-    const onSubmit = data => console.log(data);
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
 
-    return (
-        <form onSubmit={handleSubmit(onSubmit)}>
-            <OuterContainer>
-                <CustomInput type="text" placeholder="introduce tu nombre" title='Nombre' name='name' {...register("firstName", { required: true, maxLength: 20 })} error={errors.firstName && 'Error en tu nombre'} ref={ref} />
+  const onSubmit = (data) => console.log(data);
 
-                <CustomInput type="text" placeholder="introduce tu apellido" title='Apellido' name='lastname' {...register("lastName", { pattern: /^[A-Za-z]+$/i })} error={errors.lastName && 'Error en tu apellido'} ref={ref} />
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <OuterContainer>
+        <CustomInput
+          type="text"
+          placeholder="introduce tu nombre"
+          title="Nombre"
+          name="name"
+          {...register("firstName")}
+          error={errors.firstName && "Error en tu nombre"}
+          ref={ref}
+        />
 
-                <input type="submit" />
-            </OuterContainer>
-        </form>
-    );
-}
+        <CustomInput
+          type="text"
+          placeholder="introduce tu apellido"
+          title="Apellido"
+          name="lastname"
+          {...register("lastName")}
+          error={errors.lastName && "Error en tu apellido"}
+          ref={ref}
+        />
+
+        <CustomInput
+          type="number"
+          placeholder="introduce tu edad"
+          title="Edad"
+          name="age"
+          {...register("age")}
+          error={errors.lastName && "Error en tu edad"}
+          ref={ref}
+        />
+
+        <input type="submit" />
+      </OuterContainer>
+    </form>
+  );
+};
 
 export default MainPage;
