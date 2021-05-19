@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import { flexbox, layout } from "styled-system";
 
 import CustomInput from "../components/CustomInput";
@@ -27,9 +27,6 @@ const FixedbigPart = styled.div`
 const FlexedSmallPart = styled.div`
   ${flexbox}
   ${layout}
-  width: 10rem;
-  height: 15rem;
-  margin: 1rem;
 `;
 
 const schema = yup.object().shape({
@@ -57,7 +54,7 @@ const MainPage = () => {
 
   return (
     <FlexedPage display={["block", "flex", "flex", "flex"]} width="100%">
-      <FixedbigPart width={["100%", "20rem", "20rem", "20rem"]}>
+      <FixedbigPart width={["initial", "20rem", "20rem", "20rem"]}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <FormContainer>
             <CustomInput
@@ -104,9 +101,9 @@ const MainPage = () => {
           </FormContainer>
         </form>
       </FixedbigPart>
-      <FlexedbigPart display="flex" flexWrap="wrap" width={["100%", "calc(100% - 20rem)", "calc(100% - 20rem)", "calc(100% - 20rem)"]}>
+      <FlexedbigPart display="flex" flexWrap="wrap" width={["initial", "calc(100% - 20rem)", "calc(100% - 20rem)", "calc(100% - 20rem)"]}>
         {formArray.map((item) => (
-          <FlexedSmallPart key={item.dni}>
+          <FlexedSmallPart key={item.dni} width={["100%", "initial", "initial", "initial"]}>
             <CustomCard item={item} />
           </FlexedSmallPart>
         ))}

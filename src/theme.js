@@ -5,6 +5,7 @@ const theme = {
     text2: `#949494`,
     textDisabled: `#dddddd`,
     transparent: `transparent`,
+    lightTransparent: `rgba(255,255,255,0.75)`,
     error: `red`,
     bg00: `#e8f5e9`,
     bg01: `#dff9fb`,
@@ -28,6 +29,9 @@ const theme = {
     regular: `16px`,
     big: `18px`,
   },
+  shadows:{
+    default: `4px 4px 10px 2px rgba(0,0,0,0.5)`,
+  }
 };
 
 export default theme;
