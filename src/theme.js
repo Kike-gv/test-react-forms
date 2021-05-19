@@ -30,7 +30,7 @@ const theme = {
     big: `18px`,
   },
   shadows:{
-    default: `4px 4px 10px 2px rgba(0,0,0,0.5)`,
+    default: `4px 4px 10px 2px rgba(0,0,0,0.25)`,
   }
 };
 
