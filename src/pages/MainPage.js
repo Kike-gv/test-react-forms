@@ -5,30 +5,37 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
 import styled from "styled-components";
-import { flexbox } from "styled-system";
+import { flexbox, layout } from "styled-system";
 
 import CustomInput from "../components/CustomInput";
+import CustomCard from "../components/CustomCard";
 import FormContainer from "../components/FormContainer";
 
 const FlexedPage = styled.div`
   ${flexbox}
-  width: 100%;
+  ${layout}
+  ${layout}
 `;
 const FlexedbigPart = styled.div`
   ${flexbox}
-  width: 100%;
+  ${layout}
+  ${layout}
 `;
 const FixedbigPart = styled.div`
-  width: 20rem;
+  ${layout}
 `;
 const FlexedSmallPart = styled.div`
   ${flexbox}
+  ${layout}
+  width: 10rem;
+  height: 15rem;
+  margin: 1rem;
 `;
 
 const schema = yup.object().shape({
   firstName: yup.string().required(),
   lastName: yup.string().required(),
-  age: yup.number().positive().integer().required(),
+  dni: yup.number().positive().integer().required(),
   workOutside: yup.boolean(),
 });
 
@@ -49,8 +56,8 @@ const MainPage = () => {
   };
 
   return (
-    <FlexedPage>
-      <FixedbigPart>
+    <FlexedPage display={["block", "flex", "flex", "flex"]} width="100%">
+      <FixedbigPart width={["100%", "20rem", "20rem", "20rem"]}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <FormContainer>
             <CustomInput
@@ -75,11 +82,11 @@ const MainPage = () => {
 
             <CustomInput
               type="number"
-              placeholder="introduce tu edad"
-              title="Edad"
-              name="age"
-              {...register("age")}
-              error={errors.age && "Error en tu edad"}
+              placeholder="introduce tu dni sin letra"
+              title="Dni sin letra"
+              name="dni"
+              {...register("dni")}
+              error={errors.dni && "Error en tu dni"}
               ref={ref}
             />
 
@@ -97,9 +104,11 @@ const MainPage = () => {
           </FormContainer>
         </form>
       </FixedbigPart>
-      <FlexedbigPart>
+      <FlexedbigPart display="flex" flexWrap="wrap" width={["100%", "calc(100% - 20rem)", "calc(100% - 20rem)", "calc(100% - 20rem)"]}>
         {formArray.map((item) => (
-          <FlexedSmallPart> </FlexedSmallPart>
+          <FlexedSmallPart key={item.dni}>
+            <CustomCard item={item} />
+          </FlexedSmallPart>
         ))}
       </FlexedbigPart>
     </FlexedPage>
