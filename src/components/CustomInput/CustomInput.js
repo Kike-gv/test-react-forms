@@ -1,28 +1,30 @@
 import React, { useState, useEffect } from "react";
+
 import styled from "styled-components";
+import { border, fontSize, color } from "styled-system";
 
 const StyledContainer = styled.div`
   margin-bottom: 2rem;
 `;
 
 const StyledInput = styled.input`
-  border: none;
-  border-bottom: solid 1px #747474;
-  font-size: 1rem;
+  ${border}
+  ${fontSize}
+  ${color}
   &:focus {
     outline: none;
-    border-bottom: solid 2px #383838;
   }
 `;
 
 const StyledTitle = styled.p`
   margin-top: 0;
+  ${color}
 `;
 
 const StyledError = styled.p`
-  color: red;
+  ${fontSize}
+  ${color}
   margin: 0;
-  font-size: 0.875rem;
 `;
 
 const CustomInput = React.forwardRef(
@@ -41,7 +43,7 @@ const CustomInput = React.forwardRef(
 
     return (
       <StyledContainer>
-        <StyledTitle>{title}</StyledTitle>
+        <StyledTitle color="text1">{title}</StyledTitle>
         {!isCheckValue && (
           <StyledInput
             type={type}
@@ -50,6 +52,11 @@ const CustomInput = React.forwardRef(
             id={name}
             {...register}
             forwardedRef={ref}
+            border={0}
+            borderBottom="default"
+            fontSize="regular"
+            color="text1"
+            bg="transparent"
           />
         )}
 
@@ -63,9 +70,14 @@ const CustomInput = React.forwardRef(
             {...register}
             onChange={() => setIsCheckChanged(!isCheckChanged)}
             forwardedRef={ref}
+            color="text1"
           />
         )}
-        {error && <StyledError>{error}</StyledError>}
+        {error && (
+          <StyledError fontSize="minium" color="error">
+            {error}
+          </StyledError>
+        )}
       </StyledContainer>
     );
   }
